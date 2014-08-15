@@ -1,0 +1,10 @@
+<h1>Puzzle</h1>
+<table>
+  <% @board.each do |part| %>
+  	<tr>
+	  <% part.each do |elem| %>
+	    <td><%= elem %></td>
+	  <% end %>
+  	</tr>
+  <% end %>
+</table>
