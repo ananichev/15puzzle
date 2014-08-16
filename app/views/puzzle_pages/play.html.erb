@@ -1,9 +1,18 @@
 <h1>Puzzle</h1>
+<%= @board%>
+<br>---------------------------------------------------------<br>
+<%= @board.flatten%>
 <table>
   <% @board.each do |part| %>
   	<tr>
 	  <% part.each do |elem| %>
-	    <td><%= elem %></td>
+	  	<% if elem == 0 %>
+	  	  <td class="zero"><%= elem %></td>
+	  	<% elsif moving_elements(@board, part).include? elem %>
+	      <td><%= button_to elem, { action: "move_elem", elem: elem } %></td>
+	    <% else %>
+	      <td><%= elem %></td>
+	    <% end %>
 	  <% end %>
   	</tr>
   <% end %>

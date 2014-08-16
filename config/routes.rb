@@ -1,6 +1,7 @@
 Puzzle::Application.routes.draw do
 	
   get "play", to: "puzzle_pages#play"
+  post "move", to: "puzzle_pages#move_elem"
   root to: "puzzle_pages#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

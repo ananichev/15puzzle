@@ -1,9 +1,9 @@
 .button {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
-  right: 0px;
+  position:absolute;
+  top:0px;
+  left:0px;
+  bottom:0px;
+  right:0px;
   .button_to {
   text-align:center;
   padding: 10%;
@@ -11,8 +11,9 @@
 }
 
 td {
-  border: 1px solid black;
+  border:1px solid black;
   padding:5px;
+  width:50px;
 }
 
 body {
@@ -20,9 +21,12 @@ body {
 }
 
 table {
-  margin: 0 auto;
-  border-collapse: collapse;
-  width: 200px;
+  margin:0 auto;
+  border-collapse:collapse;
+  width:200px;
   height:200px;
+}
 
+.zero {
+  color: white;
 }
