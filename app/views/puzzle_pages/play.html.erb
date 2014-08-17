@@ -1,7 +1,7 @@
-<h1>Puzzle</h1>
-<%= @board%>
-<br>---------------------------------------------------------<br>
-<%= @board.flatten%>
+<h1>15puzzle</h1>
+<% if notice %>
+  <p id="notice"><%= notice %></p>
+<% end %>
 <table>
   <% @board.each do |part| %>
   	<tr>
@@ -9,7 +9,7 @@
 	  	<% if elem == 0 %>
 	  	  <td class="zero"><%= elem %></td>
 	  	<% elsif moving_elements(@board, part).include? elem %>
-	      <td><%= button_to elem, { action: "move_elem", elem: elem } %></td>
+	      <td id="button"><%= button_to elem, { action: "move_elem", elem: elem } %></td>
 	    <% else %>
 	      <td><%= elem %></td>
 	    <% end %>
@@ -17,3 +17,5 @@
   	</tr>
   <% end %>
 </table>
+
+<%= button_to "Back", root_url, method: :get, class: "back" %>
