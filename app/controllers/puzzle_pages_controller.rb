@@ -71,37 +71,27 @@ class PuzzlePagesController < ApplicationController
             break
           end
           part[@index] = 0
-        else
-          if @index
-            if part.include? 0
-              part[@index] = elem
-              break
-            else
-              i = part[@index]
-              part[@index] = elem
-              elem = i
-            end
+        elsif @index
+          if part.include? 0
+            part[@index] = elem
+            break
+          else
+            part[@index], elem = elem,  part[@index]
           end
         end
       end
-    end
-
-    if @last
+    else
       board.reverse!
       board.each do |part|
         if part.include? elem
           @index = part.index(elem)
           part[@index] = 0
-        else
-          if @index
-            if part.include? 0
-              part[@index] = elem
-              break
-            else
-              i = part[@index]
-              part[@index] = elem
-              elem = i
-            end
+        elsif @index
+          if part.include? 0
+            part[@index] = elem
+            break
+          else
+            part[@index], elem = elem,  part[@index]
           end
         end
       end
@@ -109,6 +99,6 @@ class PuzzlePagesController < ApplicationController
     end
     board.flatten!
   end
-	
+
 end
 
