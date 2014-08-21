@@ -1,7 +1,4 @@
 <h1>15puzzle</h1>
-
-<%= @board %>
-
 <% if notice %>
   <p id="notice"><%= notice %></p>
 <% end %>
@@ -11,6 +8,8 @@
       <% part.each do |elem| %>
         <% if elem == 0 %>
           <td class="zero"><%= elem %></td>
+        <% elsif @win %>
+          <td id="win"><%= elem %></td>
         <% elsif moving_elements(@board, part).include? elem %>
           <td id="button"><%= button_to elem, { action: "move_elem", elem: elem } %></td>
         <% else %>
@@ -21,4 +20,8 @@
   <% end %>
 </table>
 
-<%= button_to "Back", root_url, method: :get, class: "back" %>
+<% if @win %>
+  <%= button_to "Restart", { action: "index", restart: true }, class: "back" %>
+<% else%>
+  <%= button_to "Back", root_url, method: :get, class: "back" %>
+<% end %>

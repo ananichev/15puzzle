@@ -4,6 +4,7 @@ class PuzzlePagesController < ApplicationController
 	
   def index
     session[:board] = nil
+    redirect_to play_path if params[:restart]
   end
   
   def play
@@ -55,50 +56,51 @@ class PuzzlePagesController < ApplicationController
 	
     def congratulations(array)
       if array.flatten == (1..15).to_a << 0
-        flash[:notice] = "Congratulations! You win"	
+        flash.now[:notice] = "Congratulations! You win"
+        @win = true
       end
     end
 
-  def vertical(board, elem)
-    @last = true  if board.flatten.index(0) < board.flatten.index(elem)
+    def vertical(board, elem)
+      @last = true  if board.flatten.index(0) < board.flatten.index(elem)
 
-    unless @last
-      board.each do |part|
-        if part.include? elem
-          @index = part.index(elem)
-          if board.index(part) == 3
-            @last = true
-            break
-          end
-          part[@index] = 0
-        elsif @index
-          if part.include? 0
-            part[@index] = elem
-            break
-          else
-            part[@index], elem = elem,  part[@index]
-          end
-        end
-      end
-    else
-      board.reverse!
-      board.each do |part|
-        if part.include? elem
-          @index = part.index(elem)
-          part[@index] = 0
-        elsif @index
-          if part.include? 0
-            part[@index] = elem
-            break
-          else
-            part[@index], elem = elem,  part[@index]
+      unless @last
+        board.each do |part|
+          if part.include? elem
+            @index = part.index(elem)
+            if board.index(part) == 3
+              @last = true
+              break
+            end
+            part[@index] = 0
+          elsif @index
+            if part.include? 0
+              part[@index] = elem
+              break
+            else
+              part[@index], elem = elem,  part[@index]
+            end
           end
         end
+      else
+        board.reverse!
+        board.each do |part|
+          if part.include? elem
+            @index = part.index(elem)
+            part[@index] = 0
+          elsif @index
+            if part.include? 0
+              part[@index] = elem
+              break
+            else
+              part[@index], elem = elem,  part[@index]
+            end
+          end
+        end
+        board.reverse!
       end
-      board.reverse!
+      board.flatten!
     end
-    board.flatten!
-  end
 
 end
 
